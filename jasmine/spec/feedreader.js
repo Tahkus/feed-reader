@@ -96,17 +96,23 @@ $(function() {
          * the feed. We then load the feed again, and expect the current
          * feed not to equal feed1.
          */
-        var feed1
+        const feed = document.querySelector('.feed');
+        const feed1 = [];
+        const feed2 = [];
 
         beforeEach(function(done) {
-            loadFeed(0, done);
+            loadFeed(0)
+            Array.from(feed.children).forEach(function(entry) {
+                feed1.push(entry.innerText);
+            })
+            loadFeed(1, done);
         });
 
-        it('should have content that changes when the loadFeed function runs', function(done) {
-            feed1 = $('.feed').html();
-            loadFeed(1);
-            expect($('feed').html()).not.toEqual(feed1);
-            done();
+        it('should have content that changes when the loadFeed function runs', function() {
+            Array.from(feed.children).forEach(function(entry) {
+                feed2.push(entry.innerText);
+            });
+            expect(feed1 === feed2).toBe(false);
         });
     });
 }());
