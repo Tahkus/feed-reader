@@ -90,11 +90,9 @@ $(function() {
     describe('New Feed Selection', function() {
 
         /* This test makes sure that when the loadFeed function runs,
-         * the content within the feed actually changes. We first run
-         * loadFeed within beforeEach (since loadFeed is asynchronous),
-         * We then set the feed1 variable to be what is currently in
-         * the feed. We then load the feed again, and expect the current
-         * feed not to equal feed1.
+         * the content within the feed actually changes. We load the feed
+         * twice, each time storing the innerText of the entries in an
+         * array. We then expect these arrays not to be the same
          */
         const feed = document.querySelector('.feed');
         const feed1 = [];
