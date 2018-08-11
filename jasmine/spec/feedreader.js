@@ -78,10 +78,9 @@ $(function() {
             loadFeed(0, done);
          });
 
-         it('should have at least a single .entry element in the .feed container', function (done) {
-            const feed = document.querySelector('.feed');
-            expect(feed.children.length).toBeGreaterThan(0);
-            done();
+         it('should have at least a single .entry element in the .feed container', function () {
+            const entry = document.querySelectorAll('.feed .entry');
+            expect(entry.length).toBeGreaterThan(0);
          });
 
     });
