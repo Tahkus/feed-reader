@@ -98,17 +98,20 @@ $(function() {
         const feed2 = [];
 
         beforeEach(function(done) {
-            loadFeed(0)
-            Array.from(feed.children).forEach(function(entry) {
-                feed1.push(entry.innerText);
-            })
-            loadFeed(1, done);
+            loadFeed(0, function() {
+                Array.from(feed.children).forEach(function(entry) {
+                    feed1.push(entry.innerText);
+                });
+            });
+            loadFeed(1, function() {
+                Array.from(feed.children).forEach(function(entry) {
+                    feed2.push(entry.innerText);
+                });
+            });
+            done();
         });
 
-        it('should have content that changes when the loadFeed function runs', function() {
-            Array.from(feed.children).forEach(function(entry) {
-                feed2.push(entry.innerText);
-            });
+        it('content should change', function() {
             expect(feed1 === feed2).toBe(false);
         });
     });
