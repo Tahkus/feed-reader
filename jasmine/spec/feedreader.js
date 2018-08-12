@@ -88,10 +88,14 @@ $(function() {
 
     describe('New Feed Selection', function() {
 
-        /* This test makes sure that when the loadFeed function runs,
+        /* This test makes sure that when the loadFeed function runs
          * the content within the feed actually changes. We load the feed
-         * twice, each time storing the innerText of the entries in an
-         * array. We then expect these arrays not to be the same
+         * and store the entries text content in an array. We then load
+         * the feed again as a callback within the first loadFeed and
+         * store the content in a second array. We then call done() as a
+         * callback within this second loadFeed function so that we know all 
+         * feeds have finished loading. We then compare the content of each 
+         * stored array.
          */
         const feed = document.querySelector('.feed');
         const feed1 = [];
@@ -102,13 +106,13 @@ $(function() {
                 Array.from(feed.children).forEach(function(entry) {
                     feed1.push(entry.innerText);
                 });
-            });
-            loadFeed(1, function() {
-                Array.from(feed.children).forEach(function(entry) {
-                    feed2.push(entry.innerText);
+                loadFeed(1, function() {
+                    Array.from(feed.children).forEach(function(entry) {
+                        feed2.push(entry.innerText);
+                    });
+                    done();
                 });
             });
-            done();
         });
 
         it('content should change', function() {
